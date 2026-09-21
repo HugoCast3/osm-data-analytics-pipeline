@@ -1,0 +1,1 @@
+"C:\Users\hugof\AppData\Local\Microsoft\WindowsApps\python3.12.exe" "C:\Users\hugof\OneDrive\Escritorio\OSM_Data_Engineering_Project\2_ETL_Pipeline\ETL_Pandas.py"

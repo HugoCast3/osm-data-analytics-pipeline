@@ -1,5 +1,17 @@
 import pandas as pd
 import psycopg2
+import logging # <--- NUEVA LIBRERÍA
+
+# ==========================================
+# CONFIGURACIÓN DE BITÁCORA (LOGS)
+# ==========================================
+logging.basicConfig(
+    filename=r'C:\Users\hugof\OneDrive\Escritorio\OSM_Data_Engineering_Project\ETL_Pipeline\historial_etl.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+
+logging.info("--- INICIANDO NUEVA EJECUCIÓN DEL ETL ---")
 
 # ==========================================
 # FASE 1: EXTRACCIÓN (Simulando un CSV sucio)
@@ -57,12 +69,11 @@ try:
     cursor.executemany(consulta_sql, registros_limpios)
     conexion.commit() 
     
-    print(f"\n¡Éxito! Se inyectaron {cursor.rowcount} jugadores limpios a la base de datos.")
-
+    logging.info(f"¡Éxito! Se inyectaron {cursor.rowcount} jugadores limpios a la base de datos.")
 except Exception as e:
-    print(f"\nOcurrió un error en la base de datos: {e}")
-
+    logging.error(f"Ocurrió un error crítico en la base de datos: {e}")
 finally:
     if 'conexion' in locals() and conexion:
         cursor.close()
         conexion.close()
+        logging.info("Conexión cerrada. ETL finalizado.\n")
